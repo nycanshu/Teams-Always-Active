@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Teams Always Active",
+  "version": "1.0.0",
+  "description": "This extension keeps your Teams status as 'Available' by simulating mouse movements when idle.",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://teams.microsoft.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://teams.microsoft.com/*"],
+      "js": ["js/content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
