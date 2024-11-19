@@ -3,7 +3,7 @@ const smallMovementRange = 2; // Movement range in pixels (± this value)
 const idleThreshold = 30000; // 30 seconds of inactivity considered idle
 let lastActivityTimestamp = Date.now();
 let userActive = false;
-let isExtensionEnabled = false;
+let isExtensionEnabled = false; // Flag to control simulation
 
 // Detect user activity (mouse move or keydown)
 const resetIdleTimer = () => {
@@ -53,3 +53,14 @@ window.addEventListener("mousemove", (event) => {
 
 // Simulate mouse movement every 1 minute (60000 ms) if idle
 setInterval(moveMouse, 60000); // Adjust interval as needed
+
+// Listen for messages from the popup to toggle extension state
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.action === 'enable') {
+    isExtensionEnabled = true;
+    console.log("Teams Always Active: Simulation is enabled.");
+  } else if (message.action === 'disable') {
+    isExtensionEnabled = false;
+    console.log("Teams Always Active: Simulation is disabled.");
+  }
+});
